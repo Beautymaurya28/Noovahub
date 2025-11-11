@@ -1,0 +1,323 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Find Your Vet</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="isFilterModalOpen = true" title="Filter Vets">
+        <ion-icon name="options-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  
+  <!-- Searchbar below header -->
+  <ion-toolbar color="secondary">
+    <ion-searchbar 
+      placeholder="Search name or specialization" 
+      [(ngModel)]="searchTerm"
+      (ionInput)="applyFilters()"
+      debounce="500"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="vets-content">
+  <div class="ion-padding vets-wrapper">
+
+    <!-- Leaflet Map Section -->
+    <div class="map-container ion-margin-bottom">
+      <div #mapElement class="map-view"></div>
+    </div>
+    
+    <!-- Vet Registration Toggle Button -->
+    <ion-button 
+      expand="block" 
+      fill="clear" 
+      color="tertiary"
+      class="ion-margin-bottom"
+      (click)="isRegisterFormOpen = !isRegisterFormOpen"
+    >
+      <ion-icon [name]="isRegisterFormOpen ? 'chevron-up-circle-outline' : 'add-circle-outline'" slot="start"></ion-icon>
+      {{ isRegisterFormOpen ? 'Hide Registration Form' : '+ Register as Vet' }}
+    </ion-button>
+
+    <!-- Vet Registration Form (Collapsible Section) -->
+    <div [class.collapsed]="!isRegisterFormOpen" class="vet-registration-container ion-padding-vertical">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Vet Registration</ion-card-title>
+          <ion-card-subtitle>Join our network of trusted professionals.</ion-card-subtitle>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <form [formGroup]="registrationForm" (ngSubmit)="submitRegistration()">
+            
+            <div class="form-group">
+                <ion-label position="stacked">Full Name *</ion-label>
+                <ion-input formControlName="fullName" placeholder="Dr. Jane Doe"></ion-input>
+            </div>
+            <div class="form-group">
+                <ion-label position="stacked">Specialization *</ion-label>
+                <ion-input formControlName="specialization" placeholder="Pet Dermatology"></ion-input>
+            </div>
+            
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="6">
+                        <div class="form-group">
+                            <ion-label position="stacked">Email *</ion-label>
+                            <ion-input type="email" formControlName="email" placeholder="email@clinic.com"></ion-input>
+                        </div>
+                    </ion-col>
+                    <ion-col size="6">
+                        <div class="form-group">
+                            <ion-label position="stacked">Experience (Years) *</ion-label>
+                            <ion-input type="number" formControlName="experience" placeholder="e.g., 7"></ion-input>
+                        </div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            
+            <div class="form-group">
+                <ion-label position="stacked">Clinic/Hospital Name *</ion-label>
+                <ion-input formControlName="clinicName" placeholder="Happy Paws Veterinary Clinic"></ion-input>
+            </div>
+            
+            <!-- Map Pin Picker Placeholder -->
+            <div class="form-group">
+                <ion-label position="stacked">Clinic Address *</ion-label>
+                <ion-textarea formControlName="address" rows="2" placeholder="Full address for map pin"></ion-textarea>
+            </div>
+            
+            <ion-button expand="block" type="submit" color="primary" [disabled]="registrationForm.invalid" class="ion-margin-top">
+              Submit Registration
+            </ion-button>
+          </form>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+
+    <!-- Vet List Section -->
+    <ion-list-header>
+      <ion-label>Available Vets ({{ filteredVets.length }})</ion-label>
+    </ion-list-header>
+    
+    <div class="vet-cards-grid">
+      <ion-card *ngFor="let vet of filteredVets" class="vet-card">
+        <ion-card-content>
+          <div class="vet-info-header">
+            <img [src]="vet.photoUrl" alt="Vet Photo" class="vet-photo"/>
+            <div>
+              <ion-card-title>{{ vet.name }}</ion-card-title>
+              <ion-card-subtitle>{{ vet.specialization }} ({{ vet.qualification }})</ion-card-subtitle>
+              <ion-note class="rating-distance">
+                <ion-icon name="star" color="tertiary"></ion-icon> {{ vet.rating }} ({{ vet.distance }} km)
+              </ion-note>
+            </div>
+          </div>
+          
+          <div class="vet-actions">
+            <ion-button expand="block" fill="outline" color="primary" size="small" (click)="openProfileModal(vet)">
+              View Profile
+            </ion-button>
+            <ion-button expand="block" fill="solid" color="tertiary" size="small" (click)="openProfileModal(vet); openBookingModal()">
+              Book Appointment
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div *ngIf="filteredVets.length === 0" class="ion-text-center ion-padding-top">
+        <ion-icon name="sad-outline" size="large" color="medium"></ion-icon>
+        <p>No vets match your search criteria.</p>
+    </div>
+  </div>
+</ion-content>
+
+
+<!-- ---------------- MODALS ---------------- -->
+
+<!-- 1. Vet Profile Modal -->
+<ion-modal [isOpen]="isProfileModalOpen" (didDismiss)="closeProfileModal()" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Dr. {{ activeVet?.name }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeProfileModal()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding profile-modal-content">
+      <div class="profile-header-details">
+        <img [src]="activeVet?.photoUrl" alt="Vet Photo" class="profile-modal-photo"/>
+        <h2>{{ activeVet?.specialization }}</h2>
+        <p class="clinic-name">{{ activeVet?.clinicName }}</p>
+      </div>
+
+      <ion-list lines="full">
+        <ion-item>
+          <ion-icon name="star-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>Rating</ion-label>
+          <ion-note slot="end">{{ activeVet?.rating }} / 5</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="briefcase-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>Experience</ion-label>
+          <ion-note slot="end">{{ activeVet?.experience }} years</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>Phone</ion-label>
+          <ion-note slot="end">{{ activeVet?.phone }}</ion-note>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="location-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>Address</ion-label>
+          <ion-note slot="end" class="ion-text-wrap">{{ activeVet?.address }}</ion-note>
+        </ion-item>
+      </ion-list>
+      
+      <div class="ion-margin-top">
+        <h3>About Dr. {{ activeVet?.name }}</h3>
+        <p>{{ activeVet?.description }}</p>
+      </div>
+
+      <!-- Embedded Mini Map (Placeholder for implementation) -->
+      <div class="mini-map-placeholder ion-margin-top">
+        <p>Map view of clinic location here</p>
+      </div>
+      
+    </ion-content>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-button expand="block" color="tertiary" class="ion-margin" (click)="openBookingModal()">
+          Book Appointment Now
+        </ion-button>
+      </ion-toolbar>
+    </ion-footer>
+  </ng-template>
+</ion-modal>
+
+
+<!-- 2. Booking Modal -->
+<ion-modal [isOpen]="isBookingModalOpen" (didDismiss)="closeBookingModal()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Book with {{ activeVet?.name }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeBookingModal()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <form [formGroup]="bookingForm" (ngSubmit)="confirmBooking()">
+        
+        <ion-list lines="full">
+          <!-- Date Picker -->
+          <ion-item class="form-item">
+            <ion-input type="date" label="Select Date *" labelPlacement="stacked" formControlName="date"></ion-input>
+          </ion-item>
+
+          <!-- Time Slot Selector -->
+          <ion-item class="form-item">
+            <ion-select label="Time Slot *" labelPlacement="stacked" formControlName="timeSlot" placeholder="Choose a time slot">
+              <ion-select-option value="9:00 AM">9:00 AM - 10:00 AM</ion-select-option>
+              <ion-select-option value="11:00 AM">11:00 AM - 12:00 PM</ion-select-option>
+              <ion-select-option value="2:00 PM">2:00 PM - 3:00 PM</ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <!-- Visit Type Selector -->
+          <ion-item class="form-item">
+            <ion-select label="Visit Type *" labelPlacement="stacked" formControlName="visitType">
+              <ion-select-option value="Clinic Visit">Clinic Visit (In-person)</ion-select-option>
+              <ion-select-option value="Online">Online Consultation</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Notes -->
+          <ion-item class="form-item">
+            <ion-textarea label="Notes (Optional)" labelPlacement="stacked" formControlName="notes" rows="3" placeholder="Reason for appointment"></ion-textarea>
+          </ion-item>
+        </ion-list>
+        
+        <!-- Booking Button -->
+        <ion-button expand="block" type="submit" color="primary" [disabled]="bookingForm.invalid" class="ion-margin-top">
+          Confirm Booking
+        </ion-button>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- 3. Filter Modal -->
+<ion-modal [isOpen]="isFilterModalOpen" (didDismiss)="isFilterModalOpen = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Filter Vets</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="isFilterModalOpen = false">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      
+      <ion-list lines="full">
+        <ion-list-header>Search Filters</ion-list-header>
+        
+        <ion-item>
+          <ion-label>Location Radius</ion-label>
+          <ion-range min="5" max="50" step="5" color="tertiary" [(ngModel)]="filterOptions.radius">
+            <ion-label slot="end">{{ filterOptions.radius }} km</ion-label>
+          </ion-range>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Consultation Type</ion-label>
+          <ion-select [(ngModel)]="filterOptions.consultationType" placeholder="Select Type">
+            <ion-select-option value="All">All</ion-select-option>
+            <ion-select-option value="Online">Online</ion-select-option>
+            <ion-select-option value="In-person">Clinic Visit</ion-select-option>
+          </ion-select>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Minimum Rating</ion-label>
+          <ion-select [(ngModel)]="filterOptions.minRating" placeholder="Select Rating">
+            <ion-select-option value="0">Any Rating</ion-select-option>
+            <ion-select-option value="4">4+ Stars</ion-select-option>
+            <ion-select-option value="4.5">4.5+ Stars</ion-select-option>
+            <ion-select-option value="5">5 Stars Only</ion-select-option>
+          </ion-select>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="stacked">Pet Type</ion-label>
+          <ion-select [(ngModel)]="filterOptions.petType" placeholder="Select Pet Type">
+            <ion-select-option value="All">All Types</ion-select-option>
+            <ion-select-option value="Dog">Dog</ion-select-option>
+            <ion-select-option value="Cat">Cat</ion-select-option>
+            <ion-select-option value="Bird">Bird</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      
+      <ion-button expand="block" color="primary" class="ion-margin-top" (click)="applyFilters()">
+        Apply Filters
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

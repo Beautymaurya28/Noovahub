@@ -1,0 +1,193 @@
+// Base colors derived from your theme
+$dark-brown: #3b271c; 
+$cream: #f5f1e8; 
+$medium-brown: #6b5444;
+$input-text-color: #333; // Visible dark gray for input text
+$placeholder-color: #a89580; // Lighter shade of brown
+
+:host {
+  // Ensure ion-content fills the space and is the parent flex container for mobile
+  ion-content {
+    --background: #{$cream};
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    
+    // Defaulting ion-content to flex centering for robust mobile alignment
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+  }
+}
+
+.auth-container {
+  width: 100%;
+  height: 100vh; /* Use vh for reliable full screen height on desktop */
+  overflow: hidden; /* Prevent body scroll on desktop */
+}
+
+.auth-split {
+  display: flex;
+  height: 100%; 
+  width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+// --- LEFT PANEL (Image Side - Hidden on mobile) ---
+.auth-image {
+  flex: 1;
+  background: linear-gradient(rgba(59, 39, 28, 0.7), rgba(59, 39, 28, 0.7)),
+    url('/assets/puppy_background.jpg'); 
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f5f1e8;
+
+  @media (max-width: 768px) {
+    display: none; // Hide left panel on mobile
+  }
+}
+
+.overlay {
+  text-align: center;
+  padding: 2rem;
+
+  h1 { font-size: 3rem; font-weight: 700; }
+  p { font-size: 1.25rem; opacity: 0.9; }
+}
+
+// --- RIGHT PANEL (Form Side - Centering logic) ---
+.auth-form {
+  flex: 1;
+  // CRITICAL FIX: Center the inner form card vertically and horizontally
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: #f5f1e8;
+  overflow-y: auto;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 450px;
+  background: white; 
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+  margin: 0; /* Remove default margin that could interfere with flex centering */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+
+  h2 { color: $dark-brown; font-size: 2rem; font-weight: 700; }
+  p { color: $medium-brown; font-size: 1rem; }
+}
+
+.pet-header {
+  color: $dark-brown;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  label {
+    color: $dark-brown;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  input {
+    padding: 0.875rem 1rem;
+    border: 2px solid #d4c4b0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    // FIX: Ensure visible text color
+    color: $input-text-color; 
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $dark-brown;
+      box-shadow: 0 0 0 3px rgba(59, 39, 28, 0.1);
+    }
+    
+    // FIX: Ensure visible placeholder text
+    &::placeholder {
+      color: $placeholder-color;
+      opacity: 1;
+    }
+  }
+}
+
+.validation-error {
+  color: var(--ion-color-danger, #eb445a);
+  font-size: 0.8rem;
+  margin-top: -0.5rem;
+  margin-left: 0.2rem;
+}
+
+.submit-btn {
+  padding: 1rem;
+  background: $dark-brown;
+  color: #f5f1e8;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+
+  &:hover:not(:disabled) {
+    background: #2d1f16;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 39, 28, 0.3);
+  }
+}
+
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+
+  p {
+    color: $medium-brown;
+    a {
+      color: $dark-brown;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      margin-left: 0.25rem;
+    }
+  }
+}

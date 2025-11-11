@@ -1,0 +1,6 @@
+/* SCSS for the SignupPage. 
+    It imports the shared authentication styles from login.page.scss 
+    to maintain a consistent, minimalistic UI/UX across all forms.
+*/
+
+@import "../login/login.page.scss";

@@ -1,0 +1,53 @@
+<ion-app>
+  <!-- FIX: Conditionally enable the split pane/menu structure -->
+  <!-- We use the class binding and ion-router-outlet rendering to show/hide the layout -->
+  
+  <ion-split-pane contentId="main-content" [disabled]="!isMenuEnabled">
+    
+    <!-- The Side Menu (Only visible when isMenuEnabled is true) -->
+    <ion-menu contentId="main-content" type="overlay">
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>PetCare Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>Navigation</ion-list-header>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerLink]="p.url" routerDirection="root" lines="none" detail="false">
+              <ion-icon slot="start" [name]="p.icon" color="primary"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          
+          <!-- Cart Link -->
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerLink="/cart" routerDirection="root" lines="none" detail="false">
+              <ion-icon slot="start" name="cart-outline" color="primary"></ion-icon>
+              <ion-label>Shopping Cart</ion-label>
+              <ion-badge color="danger" slot="end" *ngIf="cartCount > 0">{{ cartCount }}</ion-badge>
+            </ion-item>
+          </ion-menu-toggle>
+          
+          <ion-list-header>Support</ion-list-header>
+          <ion-menu-toggle auto-hide="false">
+            <ion-item routerLink="/contact" routerDirection="root" lines="none" detail="false">
+              <ion-icon slot="start" name="chatbox-outline" color="primary"></ion-icon>
+              <ion-label>Contact Us</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+          
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    
+    <!-- The Main Content Area (Renders all pages) -->
+    <div class="ion-page" id="main-content">
+      <ion-router-outlet></ion-router-outlet> 
+    </div>
+
+  </ion-split-pane>
+</ion-app>

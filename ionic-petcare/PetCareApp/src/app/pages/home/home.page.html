@@ -1,0 +1,149 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/shop']" title="Search Products">
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <div class="ion-padding dashboard-wrapper">
+
+    <!-- Top Greeting and Reminder -->
+    <div class="top-greeting-section">
+      <h1 class="greeting-text">Good Morning, {{ userName }}, {{ petMomDad }}'s Mom.</h1>
+      <p class="reminder-text">Don't forget your last check-up!</p>
+
+      <!-- Health Alert Note (Conditional) -->
+      <ion-note *ngIf="showHealthAlert" class="health-alert-note" color="warning">
+        <ion-icon name="warning-outline"></ion-icon>
+        Health Alerts: One or more pets have upcoming or overdue check-ups. Check your records!
+      </ion-note>
+    </div>
+
+    <!-- Quick Actions Statistics (Horizontal Grid) -->
+    <ion-grid class="stat-cards-grid ion-margin-bottom">
+      <ion-row>
+        <!-- Responsive Columns for Stats -->
+        <ion-col size="4" size-md="4" size-lg="2" *ngFor="let stat of dashboardStats">
+          <ion-card class="stat-card" [color]="stat.color">
+            <ion-card-content class="ion-text-center">
+              <ion-icon [name]="stat.icon" class="stat-icon"></ion-icon>
+              <h2 class="stat-value">{{ stat.value }}</h2>
+              <p class="stat-title">{{ stat.title }}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <!-- Your Beloved Pets Section -->
+    <div class="pets-section ion-margin-top">
+      <ion-list-header>
+        <ion-label>Your Beloved Pets</ion-label>
+        <ion-button fill="clear" color="primary" (click)="addNewPet()">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Add New Pet
+        </ion-button>
+      </ion-list-header>
+
+      <!-- Pet Cards Grid -->
+      <div class="pets-grid">
+        <ion-card *ngFor="let pet of pets" class="pet-card">
+          <ion-card-content class="pet-card-content">
+            <div class="pet-header">
+              <div class="pet-image-container">
+                <img [src]="pet.image" [alt]="pet.name" class="pet-image"/>
+                <ion-badge *ngIf="pet.hasAlert" color="warning" class="pet-alert-badge">!</ion-badge>
+              </div>
+              <div class="pet-info">
+                <h3 class="pet-name">{{ pet.name }} ({{ pet.gender }})</h3>
+                <p class="pet-breed">{{ pet.breed }}</p>
+              </div>
+            </div>
+
+            <!-- Pet Details -->
+            <ion-item lines="none" class="pet-detail-item">
+              <ion-icon name="calendar-outline" slot="start"></ion-icon>
+              <ion-label>{{ pet.lastCheckup }}</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="pet-detail-item">
+              <ion-icon name="time-outline" slot="start"></ion-icon>
+              <ion-label>{{ pet.age }}</ion-label>
+            </ion-item>
+            <ion-item lines="none" class="pet-detail-item">
+              <ion-icon name="barbell-outline" slot="start"></ion-icon>
+              <ion-label>{{ pet.weight }}</ion-label>
+            </ion-item>
+            
+            <!-- Pet Actions (Buttons bound to functional methods) -->
+            <ion-grid class="pet-actions-grid">
+              <ion-row>
+                <ion-col size="6">
+                  <ion-button expand="block" fill="outline" color="primary" size="small" (click)="addHealthRecord(pet.id)">
+                    Add Health Record
+                  </ion-button>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-button expand="block" fill="outline" color="tertiary" size="small" (click)="addVaccination(pet.id)">
+                    Add Vaccination
+                  </ion-button>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-button expand="block" fill="solid" color="danger" size="small" (click)="removePet(pet.id)">
+                    Remove Pet
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- Quick Actions Section (Horizontal Scroll) -->
+    <div class="quick-actions-section ion-margin-top">
+      <ion-list-header>
+        <ion-label>Quick Actions</ion-label>
+      </ion-list-header>
+      
+      <div class="quick-actions-scroll horizontal-scroll">
+        <ion-card *ngFor="let action of quickActions" class="quick-action-card" [routerLink]="[action.routerLink]">
+          <ion-card-content>
+            <ion-icon [name]="action.icon" class="quick-action-icon"></ion-icon>
+            <ion-card-title>{{ action.title }}</ion-card-title>
+            <ion-card-subtitle>{{ action.description }}</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- Recent Activity Timeline Section -->
+    <div class="recent-activity-section ion-margin-top">
+      <ion-list-header>
+        <ion-label>Recent Activity Timeline</ion-label>
+        <ion-button fill="solid" color="primary" size="small">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Add Record
+        </ion-button>
+      </ion-list-header>
+
+      <ion-list lines="full">
+        <ion-item *ngFor="let activity of recentActivities" [routerLink]="activity.routerLink || ''" detail>
+          <ion-icon [name]="activity.icon" slot="start" color="medium"></ion-icon>
+          <ion-label>
+            <h2>{{ activity.text }}</h2>
+            <p>{{ activity.date }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+  </div>
+</ion-content>

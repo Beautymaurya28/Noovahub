@@ -1,0 +1,247 @@
+// Base color variables
+$primary-dark-brown: var(--ion-color-primary, #5C4033);
+$secondary-cream: var(--ion-color-secondary, #FFF9E6);
+$tertiary-gold: var(--ion-color-tertiary, #E5C07B);
+$warning-yellow: var(--ion-color-warning, #FFD700); 
+$danger-red: var(--ion-color-danger, #EB445A); 
+$medium-gray: var(--ion-color-medium, #92949C);
+$white: #fff;
+
+:host {
+  .dashboard-content {
+    --background: #{$secondary-cream}; // Base cream background
+
+    // Subtle background pattern to match dashboard aesthetic
+    background-image: url('data:image/svg+xml;utf8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="1.5" fill="%23e8e2d4"/></svg>');
+    background-size: 20px 20px;
+    background-repeat: repeat;
+  }
+
+  // --- Wrapper for content to center on larger screens ---
+  .dashboard-wrapper {
+    @media (min-width: 992px) {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+  }
+
+  // --- Top Greeting Section ---
+  .top-greeting-section {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08); 
+
+    .greeting-text {
+      font-size: 1.8em; 
+      font-weight: 700;
+      color: $primary-dark-brown;
+      margin-bottom: 5px;
+    }
+    .reminder-text {
+      font-size: 1em;
+      color: $medium-gray;
+      margin-top: 0;
+    }
+
+    .health-alert-note {
+      display: flex;
+      align-items: flex-start;
+      padding: 12px;
+      border-radius: 8px;
+      background: rgba($warning-yellow, 0.15); 
+      color: #5d4900; // Hardcoded dark color for contrast
+      font-size: 0.9em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+      ion-icon {
+        margin-right: 10px;
+        font-size: 1.2em;
+        color: $warning-yellow;
+      }
+    }
+  }
+
+  // --- List Headers (used throughout) ---
+  ion-list-header {
+    padding-left: 0;
+    padding-right: 0;
+    margin-bottom: 15px; 
+
+    ion-label {
+      font-weight: 700;
+      font-size: 1.2em;
+      color: #333; 
+    }
+    ion-button {
+      text-transform: capitalize; 
+      font-weight: 600;
+    }
+  }
+
+
+  // --- Your Beloved Pets Section ---
+  .pets-section {
+    // Grid handles layout of pet cards
+    .pets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+      gap: 20px; 
+    }
+
+    .pet-card {
+      --background: #{$white};
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      margin: 0; 
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .pet-card-content {
+        padding: 20px;
+      }
+
+      .pet-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .pet-image-container {
+          position: relative;
+          margin-right: 15px;
+          .pet-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid $primary-dark-brown; 
+          }
+          .pet-alert-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.8em;
+            padding: 5px 8px;
+            border-radius: 50%;
+            --background: $warning-yellow;
+            color: $white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+          }
+        }
+
+        .pet-info {
+          .pet-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: $primary-dark-brown;
+          }
+          .pet-breed {
+            font-size: 0.9em;
+            color: $medium-gray;
+          }
+        }
+      }
+
+      .pet-detail-item {
+        --background: transparent;
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        --inner-border-width: 0; 
+        min-height: 35px;
+        font-size: 0.9em;
+        color: #333;
+
+        ion-icon {
+          color: $tertiary-gold; 
+        }
+      }
+      
+      .pet-actions-grid {
+          margin-top: 20px;
+          padding: 0;
+
+          ion-col {
+              padding: 5px; 
+          }
+          ion-button {
+              font-size: 0.85em;
+              font-weight: 600;
+              height: 38px;
+              --border-radius: 8px;
+          }
+      }
+    }
+  }
+
+
+  // --- Quick Actions Section ---
+  .quick-actions-section {
+    .quick-actions-scroll {
+      display: flex;
+      overflow-x: scroll;
+      padding-bottom: 10px;
+      
+      // Hide scrollbar
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
+
+      .quick-action-card {
+        flex: 0 0 200px; 
+        margin-right: 15px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        --background: #{$white};
+        transition: transform 0.2s ease-in-out;
+
+        &:hover { transform: translateY(-5px); }
+
+        ion-card-content {
+          padding: 20px;
+          align-items: flex-start;
+        }
+
+        .quick-action-icon {
+          font-size: 2.2em;
+          color: $primary-dark-brown;
+        }
+
+        ion-card-title {
+          font-weight: 700;
+          color: $primary-dark-brown;
+        }
+        ion-card-subtitle {
+          font-size: 0.8em;
+          color: $medium-gray;
+        }
+      }
+    }
+  }
+
+
+  // --- Recent Activity Timeline Section ---
+  .recent-activity-section {
+    ion-list {
+      background: transparent;
+
+      ion-item {
+        --background: #{$white};
+        border-radius: 8px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        
+        ion-icon {
+          color: $tertiary-gold; 
+        }
+
+        ion-label {
+          h2 { font-weight: 600; color: #333; }
+          p { font-size: 0.8em; color: $medium-gray; }
+        }
+      }
+    }
+  }
+}

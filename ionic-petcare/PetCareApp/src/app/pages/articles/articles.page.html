@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>PetCare Blog</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="secondary">
+  <ion-toolbar color="secondary" class="ion-padding-horizontal">
+    <ion-searchbar 
+      placeholder="Search tips & guides..." 
+      [(ngModel)]="searchTerm" 
+      (ionInput)="applyFilters()"
+      (ionClear)="onSearchClear()"
+    ></ion-searchbar>
+  </ion-toolbar>
+
+  <ion-segment 
+    [(ngModel)]="selectedCategory" 
+    (ionChange)="applyFilters()" 
+    scrollable 
+    color="primary"
+  >
+    <ion-segment-button 
+      *ngFor="let category of articleCategories" 
+      [value]="category"
+    >
+      <ion-label>{{ category }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="ion-padding">
+    
+    <ion-list lines="full" *ngIf="filteredArticles.length > 0; else noResults">
+      <ion-item 
+        *ngFor="let article of filteredArticles" 
+        button 
+        detail 
+        (click)="viewArticle(article)"
+        color="secondary"
+        class="ion-margin-bottom"
+      >
+        <ion-icon slot="start" name="document-text-outline" color="primary"></ion-icon>
+        <ion-label>
+          <h2 class="ion-text-wrap">{{ article.title }}</h2>
+          <p class="ion-text-wrap">{{ article.excerpt }}</p>
+          <ion-note slot="end" color="medium">{{ article.date }} | {{ article.category }}</ion-note>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <ng-template #noResults>
+      <div class="ion-text-center ion-padding-top">
+        <ion-icon name="alert-circle-outline" size="large" color="medium"></ion-icon>
+        <p>No articles found matching your search or filter criteria.</p>
+        <ion-button fill="clear" color="primary" (click)="selectedCategory = 'All'; onSearchClear();">
+          Show All Articles
+        </ion-button>
+      </div>
+    </ng-template>
+
+  </div>
+</ion-content>

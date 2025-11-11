@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="secondary">
+  <div class="profile-container ion-padding">
+
+    <ion-card class="user-info-card ion-text-center ion-margin-bottom">
+      <ion-card-content>
+        <ion-avatar class="profile-avatar">
+          <img alt="User Avatar" src="https://ionicframework.com/docs/img/demos/avatar.svg" /> 
+        </ion-avatar>
+        <ion-card-title>{{ user.name }}</ion-card-title>
+        <ion-card-subtitle>{{ user.email }}</ion-card-subtitle>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-list lines="full" class="ion-margin-bottom nav-list-card">
+      <ion-list-header>
+        <ion-label color="dark">Pet Management</ion-label>
+      </ion-list-header>
+      
+      <ion-item button detail routerLink="/pet-profile" color="light">
+        <ion-icon slot="start" name="paw-outline" color="primary"></ion-icon>
+        <ion-label>Manage Pet Profiles</ion-label>
+        <ion-note slot="end">View Records</ion-note>
+      </ion-item>
+    </ion-list>
+    
+    <ion-list lines="full" class="ion-margin-bottom nav-list-card">
+      <ion-list-header>
+        <ion-label color="dark">Account Settings</ion-label>
+      </ion-list-header>
+
+      <ion-item *ngFor="let item of settingsMenuItems" button detail [routerLink]="item.url" color="light">
+        <ion-icon slot="start" [name]="item.icon" color="primary"></ion-icon>
+        <ion-label>{{ item.title }}</ion-label>
+      </ion-item>
+    </ion-list>
+    
+    <ion-list lines="full" class="ion-margin-bottom nav-list-card">
+      <ion-list-header>
+        <ion-label color="dark">Notifications</ion-label>
+      </ion-list-header>
+
+      <ion-item color="light">
+        <ion-icon slot="start" name="notifications-outline" color="primary"></ion-icon>
+        <ion-label>Enable App Notifications</ion-label>
+        <ion-toggle 
+          slot="end" 
+          [(ngModel)]="user.notificationEnabled" 
+          (ionChange)="saveNotificationSetting()" 
+          color="primary"
+        ></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="danger" fill="outline" (click)="logout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Logout
+    </ion-button>
+  </div>
+</ion-content>

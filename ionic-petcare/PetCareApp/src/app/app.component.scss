@@ -1,0 +1,94 @@
+/* Assuming these variables are correctly defined in src/theme/variables.scss */
+$primary-dark: var(--ion-color-primary, #4B2E05);
+$cream: var(--ion-color-secondary, #F5E6CC);
+$accent-gold: var(--ion-color-tertiary, #E5C07B);
+$menu-bg: #3b271c; /* Slightly darker brown for menu depth */
+$menu-header-bg: #2d1f16; /* Deepest brown for top bar */
+
+// Ensure the split pane container is correct (from sidemenu starter)
+ion-split-pane {
+  --side-max-width: 280px; /* Slightly wider menu for readability */
+}
+
+// --- MENU PANEL STYLING ---
+ion-menu {
+  --background: #{$menu-bg};
+
+  ion-header {
+    ion-toolbar {
+      --background: #{$menu-header-bg}; /* Deepest color for contrast against content */
+      --color: #{$cream};
+      font-weight: 700;
+    }
+  }
+
+  ion-content {
+    --background: #{$menu-bg};
+  }
+}
+
+// --- NAVIGATION LIST STYLING ---
+ion-list {
+  background: transparent;
+  padding-top: 0; // Control padding via item margin
+
+  ion-list-header {
+    color: #{$cream};
+    font-weight: 800; /* Very bold header */
+    font-size: 1.1em;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    
+    // Add subtle divider beneath section headers
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+  }
+
+  ion-item {
+    --background: transparent;
+    --color: #{$cream};
+    --min-height: 52px; /* Taller items for better tapping */
+    --padding-start: 16px;
+    --inner-padding-end: 16px;
+    --border-radius: 0;
+    
+    // Smooth transition for hover effect
+    transition: background-color 0.2s ease;
+    
+    ion-label {
+      font-weight: 500;
+      font-size: 1em;
+      letter-spacing: 0.5px;
+    }
+
+    // Icon color is cream for contrast
+    ion-icon {
+      color: #{$cream};
+      font-size: 1.4em; /* Larger icons */
+    }
+
+    // Active/Selected link styling
+    &.activated, &.router-link-active {
+      --background: rgba(229, 192, 123, 0.1); /* Subtle gold background highlight */
+      --color: #{$cream};
+      font-weight: 700;
+      border-left: 4px solid #{$accent-gold}; /* Gold accent bar */
+      padding-left: 12px; /* Adjust padding due to border */
+    }
+    
+    // Standard hover feedback
+    &:hover {
+      --background: rgba(255, 255, 255, 0.05); 
+    }
+  }
+}
+
+// --- CART BADGE STYLING ---
+ion-badge {
+    // Inherits danger color, ensures strong contrast
+    --color: #fff;
+    font-weight: 700;
+    padding: 5px 8px;
+    border-radius: 4px;
+}

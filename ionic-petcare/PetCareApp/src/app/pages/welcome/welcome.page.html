@@ -1,0 +1,39 @@
+<div class="welcome-page-container">
+  <ion-content [fullscreen]="true">
+    <div class="content-wrapper ion-padding">
+      
+      <div class="logo-section fade-in">
+        <div class="app-logo">
+          <ion-icon name="paw"></ion-icon> 
+        </div>
+      </div>
+      
+      <div class="text-section fade-in">
+        <h1>{{ heading }}</h1>
+        <p>{{ tagline }}</p>
+      </div>
+      
+      <div class="button-group slide-up">
+        
+        <ion-button 
+          expand="block" 
+          class="login-button" 
+          (click)="goToLogin()"
+          color="primary"
+        >
+          Login
+        </ion-button>
+        
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          class="signup-button" 
+          (click)="goToSignup()"
+        >
+          Sign Up
+        </ion-button>
+      </div>
+
+    </div>
+  </ion-content>
+</div>

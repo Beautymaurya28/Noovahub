@@ -1,0 +1,93 @@
+$dark-brown: var(--ion-color-primary, #5C4033);
+$cream: var(--ion-color-secondary, #FFF9E6);
+$light-gray: #f7f7f7;
+
+:host {
+  ion-content {
+    --background: #{$cream};
+  }
+
+  .contact-container {
+    // Center content on larger screens for better UX
+    @media (min-width: 768px) {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+  }
+
+  ion-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  // --- Contact Info Card Styling ---
+  .info-card {
+    ion-list {
+      background: transparent;
+      padding: 0;
+    }
+    ion-item {
+      --background: transparent;
+      --inner-border-width: 0; // Remove separator line
+      padding: 5px 0;
+
+      ion-icon {
+        font-size: 1.5em;
+        margin-right: 15px;
+      }
+      h2 {
+        font-weight: 600;
+        color: #333;
+        font-size: 1em;
+        margin-bottom: 2px;
+      }
+      p {
+        color: var(--ion-color-medium);
+        font-size: 0.9em;
+      }
+    }
+  }
+
+  // --- Contact Form Card Styling (Shared Input Look) ---
+  .form-card {
+    ion-card-title {
+      font-weight: 600;
+      color: $dark-brown;
+    }
+    
+    ion-item {
+      --background: #{$light-gray}; 
+      --border-radius: 8px;
+      --padding-start: 15px;
+      --padding-end: 15px;
+      
+      // Style the label placement for a clean look
+      ion-input, ion-textarea {
+        --padding-top: 15px;
+        --padding-bottom: 15px;
+      }
+    }
+    
+    .message-input {
+        // Ensure the textarea container is tall enough
+        --padding-top: 10px;
+        --padding-bottom: 10px;
+    }
+  }
+
+  // --- Validation Error Messages ---
+  .validation-error {
+    margin: -10px 0 10px 15px; // Adjust margin to align with input
+    p {
+      color: var(--ion-color-danger);
+      font-size: 0.75em;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  ion-button {
+    height: 50px;
+    font-weight: 600;
+  }
+}

@@ -1,0 +1,76 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Pet Store</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/cart">
+        <ion-icon name="cart-outline"></ion-icon>
+        <ion-badge color="danger" *ngIf="dataService.getCartCount() > 0">{{ dataService.getCartCount() }}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="secondary">
+  
+  <ion-toolbar color="secondary" class="ion-padding-horizontal sticky-toolbar">
+    <ion-searchbar 
+      placeholder="Search products..." 
+      [(ngModel)]="searchTerm" 
+      (ionInput)="applyFilters()"
+      (ionClear)="onSearchClear()"
+    ></ion-searchbar>
+  </ion-toolbar>
+
+  <ion-segment 
+    [(ngModel)]="selectedCategory" 
+    (ionChange)="applyFilters()" 
+    scrollable 
+    color="primary"
+    class="filter-segment"
+  >
+    <ion-segment-button *ngFor="let category of categories" [value]="category">
+      <ion-label>{{ category }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div class="shop-container ion-padding">
+
+    <ion-grid *ngIf="filteredProducts.length > 0; else noProducts">
+      <ion-row>
+        <ion-col size="6" size-md="4" size-lg="3" *ngFor="let product of filteredProducts">
+          
+          <ion-card class="product-card">
+            <img alt="Product" src="assets/product-placeholder.jpg" />
+            <ion-card-header class="ion-no-padding">
+              <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+              <ion-card-title>{{ product.name }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="ion-no-padding">
+              <div class="price-row">
+                <ion-text color="primary" class="price">${{ product.price.toFixed(2) }}</ion-text>
+                
+                <ion-button size="small" (click)="addToCart(product)">
+                  <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ng-template #noProducts>
+      <div class="ion-text-center empty-state">
+        <ion-icon name="alert-circle-outline" size="large" color="medium"></ion-icon>
+        <p>No products found matching your criteria.</p>
+        <ion-button fill="clear" color="primary" (click)="selectedCategory = 'All'; onSearchClear();">
+          Show All Products
+        </ion-button>
+      </div>
+    </ng-template>
+
+  </div>
+</ion-content>

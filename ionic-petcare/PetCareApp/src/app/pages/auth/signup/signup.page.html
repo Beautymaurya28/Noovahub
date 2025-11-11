@@ -1,0 +1,56 @@
+<ion-content [fullscreen]="true" color="secondary">
+  <div class="login-container ion-padding">
+    <div class="ion-text-center logo-section">
+      <ion-icon name="paw" class="logo-icon"></ion-icon>
+      <h1>Join PetCare</h1>
+      <p>Create your account to access all features.</p>
+    </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSignupSubmit()">
+      
+      <ion-item class="ion-margin-bottom" lines="none">
+        <ion-icon slot="start" name="mail-outline" color="primary"></ion-icon>
+        <ion-input 
+          label="Email" 
+          labelPlacement="floating" 
+          type="email" 
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
+      <div class="validation-error" *ngIf="controls['email'].invalid && (controls['email'].dirty || controls['email'].touched)">
+        <p *ngIf="controls['email'].errors?.['required']">Email is required.</p>
+        <p *ngIf="controls['email'].errors?.['email']">Please enter a valid email format.</p>
+      </div>
+
+      <ion-item class="ion-margin-bottom" lines="none">
+        <ion-icon slot="start" name="lock-closed-outline" color="primary"></ion-icon>
+        <ion-input 
+          label="Password" 
+          labelPlacement="floating" 
+          type="password" 
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+      <div class="validation-error" *ngIf="controls['password'].invalid && (controls['password'].dirty || controls['password'].touched)">
+        <p *ngIf="controls['password'].errors?.['required']">Password is required.</p>
+        <p *ngIf="controls['password'].errors?.['minlength']">Password must be at least 6 characters.</p>
+      </div>
+      
+      <ion-item class="ion-margin-bottom" lines="none">
+        <ion-icon slot="start" name="shield-checkmark-outline" color="primary"></ion-icon>
+        <ion-input 
+          label="Confirm Password" 
+          labelPlacement="floating" 
+          type="password" 
+          formControlName="confirmPassword"
+        ></ion-input>
+      </ion-item>
+      
+      <div class="validation-error" *ngIf="controls['confirmPassword'].invalid && (controls['confirmPassword'].dirty || controls['confirmPassword'].touched)">
+        <p *ngIf="controls['confirmPassword'].errors?.['required']">Confirmation is required.</p>
+        <p *ngIf="signupForm.hasError('passwordMismatch') && controls['confirmPassword'].dirty">Passwords do not match.</p>
+      </div>
+
+      </form>
+    </div>
+</ion-content>

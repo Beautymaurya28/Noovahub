@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Cart ({{ cartItems.length }})</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="secondary">
+  <div class="cart-container ion-padding">
+    
+    <ion-list *ngIf="cartItems.length > 0; else emptyCart" lines="none">
+      <ion-item 
+        *ngFor="let item of cartItems; let i = index" 
+        class="cart-item ion-margin-bottom"
+      >
+        <ion-thumbnail slot="start">
+          <img alt="Product" src="assets/product-placeholder.jpg" />
+        </ion-thumbnail>
+
+        <ion-label class="ion-text-wrap">
+          <h2 class="item-name">{{ item.name }}</h2>
+          <p class="item-price">${{ item.price.toFixed(2) }}</p>
+          <ion-note color="medium">Qty: 1</ion-note>
+        </ion-label>
+
+        <ion-buttons slot="end">
+          <ion-button 
+            color="danger" 
+            fill="clear" 
+            (click)="removeItem(item)"
+          >
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+
+    <ion-card *ngIf="cartItems.length > 0" class="summary-card">
+      <ion-card-header>
+        <ion-card-title>Order Summary</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="summary-line">
+          <ion-label>Subtotal ({{ cartItems.length }} items)</ion-label>
+          <ion-text>${{ totalPrice.toFixed(2) }}</ion-text>
+        </div>
+        <div class="summary-line">
+          <ion-label>Shipping</ion-label>
+          <ion-text>FREE</ion-text>
+        </div>
+        <ion-list-header class="total-line">
+          <ion-label>Total</ion-label>
+          <ion-text color="primary" class="total-amount">${{ totalPrice.toFixed(2) }}</ion-text>
+        </ion-list-header>
+      </ion-card-content>
+    </ion-card>
+
+    <ng-template #emptyCart>
+      <div class="ion-text-center empty-state">
+        <ion-icon name="cart-outline" color="medium"></ion-icon>
+        <ion-label>
+          <h2>Your cart is empty!</h2>
+          <p>Time to treat your pet. Head over to the shop!</p>
+        </ion-label>
+        <ion-button routerLink="/shop" color="primary" class="ion-margin-top">
+          Start Shopping
+        </ion-button>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="cartItems.length > 0">
+  <ion-toolbar color="primary">
+    <div class="checkout-footer">
+      <div class="total-display">
+        <ion-label>Total:</ion-label>
+        <ion-text class="price-big">${{ totalPrice.toFixed(2) }}</ion-text>
+      </div>
+      <ion-button expand="full" (click)="checkout()" color="secondary" class="checkout-btn">
+        Proceed to Checkout
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

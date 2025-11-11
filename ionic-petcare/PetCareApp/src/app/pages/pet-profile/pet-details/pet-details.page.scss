@@ -1,0 +1,162 @@
+// Define custom theme colors
+$primary-dark-brown: var(--ion-color-primary, #4B2E05);
+$secondary-cream: var(--ion-color-secondary, #F5E6CC);
+$tertiary-gold: var(--ion-color-tertiary, #E5C07B);
+$medium-gray: var(--ion-color-medium, #92949C);
+$white: #fff;
+
+:host {
+    .pet-profile-content {
+        --background: #{$secondary-cream};
+    }
+    .profile-wrapper {
+        @media (min-width: 768px) {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    }
+    
+    // --- Segment Styling (Tabs) ---
+    ion-segment {
+        --background: #{$white};
+        border-radius: 0;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        
+        ion-segment-button {
+            --indicator-color: #{$primary-dark-brown};
+            font-weight: 600;
+            color: $medium-gray;
+            text-transform: capitalize;
+            
+            &.segment-button-checked {
+                color: $primary-dark-brown;
+            }
+        }
+    }
+    
+    // --- Pet Card List ---
+    .pet-cards-grid {
+        padding: 0;
+    }
+    .pet-card {
+        --background: #{$white};
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin: 0 0 20px 0;
+        
+        .pet-card-header-bg {
+            height: 40px;
+            background: linear-gradient(to right, $primary-dark-brown, $tertiary-gold);
+            border-radius: 12px 12px 0 0;
+        }
+        
+        ion-card-content {
+            padding: 15px;
+            position: relative;
+            
+            .pet-info-summary {
+                display: flex;
+                align-items: center;
+                margin-top: -30px; /* Pull avatar over the colored header */
+                margin-bottom: 15px;
+            }
+            
+            .pet-avatar {
+                width: 75px;
+                height: 75px;
+                border-radius: 50%;
+                margin-right: 15px;
+                border: 4px solid $white;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+                position: relative;
+
+                .health-badge {
+                    position: absolute;
+                    top: 0;
+                    right: -5px;
+                    padding: 4px;
+                    border-radius: 50%;
+                    font-size: 0.7em;
+                    z-index: 10;
+                }
+            }
+            
+            .info-text {
+                ion-card-title {
+                    font-size: 1.4em;
+                    font-weight: 700;
+                    color: $primary-dark-brown;
+                }
+                ion-card-subtitle {
+                    color: $medium-gray;
+                    font-size: 0.9em;
+                }
+            }
+            
+            .pet-details-list {
+                padding: 10px 0;
+                
+                ion-item {
+                    --background: transparent;
+                    --inner-border-width: 0;
+                    font-size: 0.95em;
+                }
+            }
+            
+            .card-actions {
+                display: flex;
+                justify-content: space-around;
+                margin-top: 10px;
+                
+                ion-button {
+                    font-size: 0.8em;
+                    font-weight: 600;
+                    height: 30px;
+                }
+            }
+        }
+    }
+    
+    // --- Health Records/Reminders Lists ---
+    .record-list, .reminder-list {
+        background: $white;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        
+        ion-item {
+            --background: $white;
+            ion-label h2 {
+                font-weight: 600;
+                color: #333;
+            }
+            ion-label p {
+                font-size: 0.9em;
+                color: $medium-gray;
+            }
+        }
+    }
+
+    // --- Modal Styles ---
+    .modal-pet-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid $primary-dark-brown;
+    }
+    
+    .details-header {
+        border-bottom: 1px solid #f0f0f0;
+        
+        .details-pet-photo {
+             width: 120px;
+             height: 120px;
+             border-radius: 50%;
+             object-fit: cover;
+             border: 4px solid $tertiary-gold;
+             margin-bottom: 10px;
+        }
+        h2 { font-weight: 700; color: $primary-dark-brown; }
+    }
+}

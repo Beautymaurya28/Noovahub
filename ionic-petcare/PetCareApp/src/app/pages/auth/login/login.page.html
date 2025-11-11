@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true" color="secondary">
+  <div class="login-container ion-padding">
+
+    <div class="ion-text-center logo-section">
+      <ion-icon name="paw" class="logo-icon"></ion-icon>
+      <h1>Welcome Back</h1>
+      <p>Sign in to manage your beloved pets and services.</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+      
+      <ion-item class="ion-margin-bottom" lines="none">
+        <ion-icon slot="start" name="mail-outline" color="primary"></ion-icon>
+        <ion-input 
+          label="Email" 
+          labelPlacement="floating" 
+          type="email" 
+          formControlName="email"
+          placeholder="your.email@example.com"
+        ></ion-input>
+      </ion-item>
+      
+      <div class="validation-error" *ngIf="controls['email'].invalid && (controls['email'].dirty || controls['email'].touched)">
+        <p *ngIf="controls['email'].errors?.['required']">Email is required.</p>
+        <p *ngIf="controls['email'].errors?.['email']">Please enter a valid email format.</p>
+      </div>
+
+      <ion-item class="ion-margin-bottom" lines="none">
+        <ion-icon slot="start" name="lock-closed-outline" color="primary"></ion-icon>
+        <ion-input 
+          label="Password" 
+          labelPlacement="floating" 
+          type="password" 
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+      
+      <div class="validation-error" *ngIf="controls['password'].invalid && (controls['password'].dirty || controls['password'].touched)">
+        <p *ngIf="controls['password'].errors?.['required']">Password is required.</p>
+        <p *ngIf="controls['password'].errors?.['minlength']">Password must be at least 6 characters.</p>
+      </div>
+      
+      <ion-note class="ion-text-end forgot-link" routerLink="/forgot-password">Forgot Password?</ion-note>
+
+      <ion-button 
+        expand="full" 
+        color="primary" 
+        type="submit" 
+        [disabled]="loginForm.invalid"
+        class="ion-margin-top ion-margin-bottom"
+      >
+        Login
+      </ion-button>
+    </form>
+    
+    </div>
+</ion-content>

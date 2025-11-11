@@ -1,0 +1,335 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Pets 🐾</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddPetModal()">
+        <ion-icon name="add-outline"></ion-icon>
+        <span class="ion-hide-sm-down">Add Pet</span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Segment for Section Navigation -->
+  <ion-toolbar color="secondary">
+    <ion-segment [(ngModel)]="activeSegment" mode="md">
+      <ion-segment-button value="pets">
+        <ion-label>My Pets</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="records">
+        <ion-label>Health Records</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="reminders">
+        <ion-label>Reminders</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="pet-profile-content">
+  <div class="ion-padding profile-wrapper">
+
+    <!-- 1. MY PETS SECTION (activeSegment == 'pets') -->
+    <div *ngIf="activeSegment === 'pets'">
+      
+      <ion-grid class="pet-cards-grid ion-margin-top">
+        <ion-row>
+          <ion-col size="12" size-md="6" *ngFor="let pet of pets">
+            <ion-card class="pet-card">
+              <div class="pet-card-header-bg"></div>
+              
+              <ion-card-content>
+                
+                <div class="pet-info-summary">
+                  <ion-avatar class="pet-avatar">
+                    <img [src]="pet.photoUrl" [alt]="pet.name" />
+                    <ion-badge [color]="pet.healthStatus === 'Healthy' ? 'success' : pet.healthStatus === 'Due' ? 'warning' : 'danger'" class="health-badge">
+                      <ion-icon [name]="pet.healthStatus === 'Healthy' ? 'checkmark-circle' : 'alert-circle'"></ion-icon>
+                    </ion-badge>
+                  </ion-avatar>
+
+                  <div class="info-text">
+                    <ion-card-title>{{ pet.name }} ({{ pet.gender === 'Male' ? '♂' : '♀' }})</ion-card-title>
+                    <ion-card-subtitle>{{ pet.species }} - {{ pet.breed }}</ion-card-subtitle>
+                  </div>
+                </div>
+
+                <ion-list lines="none" class="pet-details-list">
+                    <ion-item>
+                        <ion-icon name="time-outline" slot="start" color="medium"></ion-icon>
+                        <ion-label>Age</ion-label>
+                        <ion-note slot="end">{{ pet.age }} yrs old</ion-note>
+                    </ion-item>
+                    <ion-item>
+                        <ion-icon name="barbell-outline" slot="start" color="medium"></ion-icon>
+                        <ion-label>Weight</ion-label>
+                        <ion-note slot="end">{{ pet.weight }} kg</ion-note>
+                    </ion-item>
+                </ion-list>
+                
+                <ion-button expand="block" fill="clear" size="small" color="primary" (click)="viewPetDetails(pet)">
+                  View Details
+                </ion-button>
+                
+                <div class="card-actions">
+                  <ion-button fill="outline" size="small" color="primary" (click)="editPet(pet)">Edit</ion-button>
+                  <ion-button fill="solid" size="small" color="danger" (click)="deletePet(pet.id)">Delete</ion-button>
+                </div>
+                
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      
+      <div *ngIf="pets.length === 0" class="ion-text-center ion-padding">
+          <p class="empty-state-text">No pets registered yet. Click 'Add Pet' to start!</p>
+      </div>
+      
+    </div>
+    
+    <!-- 2. HEALTH RECORDS SECTION (activeSegment == 'records') -->
+    <div *ngIf="activeSegment === 'records'">
+      <ion-list-header>
+        <ion-label>All Medical History</ion-label>
+        <ion-button size="small" color="tertiary" (click)="openAddRecordModal()">+ Add Record</ion-button>
+      </ion-list-header>
+      
+      <ion-list class="record-list" lines="full">
+        <ion-item *ngFor="let record of petRecords">
+          <ion-icon [name]="record.type === 'Vaccination' ? 'syringe-outline' : record.type === 'Medication' ? 'medical-outline' : 'reader-outline'" slot="start" [color]="record.type === 'Vaccination' ? 'warning' : 'primary'"></ion-icon>
+          <ion-label>
+            <h2>{{ getPetNameById(record.petId) }} - {{ record.type }}</h2>
+            <p>{{ record.description }}</p>
+          </ion-label>
+          <ion-note slot="end">{{ record.date }}</ion-note>
+        </ion-item>
+      </ion-list>
+      
+      <div *ngIf="petRecords.length === 0" class="ion-text-center ion-padding">
+          <p class="empty-state-text">No health records found.</p>
+      </div>
+    </div>
+
+    <!-- 3. REMINDERS SECTION (activeSegment == 'reminders') -->
+    <div *ngIf="activeSegment === 'reminders'">
+      <ion-list-header>
+        <ion-label>Upcoming Reminders</ion-label>
+        <ion-button size="small" color="tertiary" (click)="openAddRecordModal()">+ Add Reminder</ion-button>
+      </ion-list-header>
+      
+      <ion-list class="reminder-list" lines="full">
+        <ion-item *ngFor="let reminder of reminders">
+          <ion-icon name="alert-circle-outline" slot="start" color="danger"></ion-icon>
+          <ion-label>
+            <h2>{{ getPetNameById(reminder.petId) }} - {{ reminder.type }}</h2>
+            <p>{{ reminder.description }}</p>
+          </ion-label>
+          <ion-badge slot="end" color="warning">Due {{ reminder.dueDate }}</ion-badge>
+        </ion-item>
+      </ion-list>
+      
+      <div *ngIf="reminders.length === 0" class="ion-text-center ion-padding">
+          <p class="empty-state-text">No upcoming reminders set.</p>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- ---------------- MODALS ---------------- -->
+
+<!-- 1. ADD/EDIT PET Modal -->
+<ion-modal [isOpen]="isPetModalOpen" (didDismiss)="isPetModalOpen = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>{{ petForm.get('id')?.value ? 'Edit Pet Profile' : 'Add New Pet' }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="isPetModalOpen = false">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <form [formGroup]="petForm" (ngSubmit)="savePet()">
+        <ion-list lines="full">
+          <ion-list-header>Basic Info</ion-list-header>
+          
+          <!-- Pet Photo Placeholder -->
+          <div class="photo-upload-section ion-text-center ion-padding-vertical">
+             <img [src]="petForm.get('photoUrl')?.value" alt="Pet Photo" class="modal-pet-photo"/>
+             <ion-button fill="clear" size="small" color="medium">Upload Photo</ion-button>
+          </div>
+          
+          <ion-item>
+            <ion-input label="Name *" labelPlacement="stacked" formControlName="name"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-select label="Species *" labelPlacement="stacked" formControlName="species">
+              <ion-select-option *ngFor="let s of speciesList" [value]="s">{{ s }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item>
+            <ion-input label="Breed *" labelPlacement="stacked" formControlName="breed"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-input type="date" label="Date of Birth *" labelPlacement="stacked" formControlName="dob"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-select label="Gender *" labelPlacement="stacked" formControlName="gender">
+              <ion-select-option value="Male">Male</ion-select-option>
+              <ion-select-option value="Female">Female</ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item>
+            <ion-input type="number" label="Weight (kg) *" labelPlacement="stacked" formControlName="weight"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-input label="Color" labelPlacement="stacked" formControlName="color"></ion-input>
+          </ion-item>
+
+        </ion-list>
+        
+        <ion-button expand="block" type="submit" color="primary" [disabled]="petForm.invalid" class="ion-margin-top">
+          Save Profile
+        </ion-button>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- 2. ADD HEALTH RECORD Modal -->
+<ion-modal [isOpen]="isRecordModalOpen" (didDismiss)="isRecordModalOpen = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Add Health Record</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="isRecordModalOpen = false">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <form [formGroup]="recordForm" (ngSubmit)="saveRecord()">
+        <ion-list lines="full">
+          
+          <ion-item>
+            <ion-select label="Pet *" labelPlacement="stacked" formControlName="petId">
+              <ion-select-option *ngFor="let pet of pets" [value]="pet.id">{{ pet.name }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item>
+            <ion-select label="Record Type *" labelPlacement="stacked" formControlName="type">
+              <ion-select-option value="Vaccination">Vaccination</ion-select-option>
+              <ion-select-option value="Visit">Vet Visit</ion-select-option>
+              <ion-select-option value="Medication">Medication</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-input type="date" label="Date *" labelPlacement="stacked" formControlName="date"></ion-input>
+          </ion-item>
+          
+          <ion-item *ngIf="recordForm.get('type')?.value === 'Vaccination'">
+            <ion-input type="date" label="Next Due Date" labelPlacement="stacked" formControlName="dueDate"></ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-textarea label="Description *" labelPlacement="stacked" formControlName="description" rows="3"></ion-textarea>
+          </ion-item>
+          
+          <ion-list-header>Documents</ion-list-header>
+          <ion-item>
+            <ion-label>Upload File (Optional)</ion-label>
+            <ion-button slot="end" fill="outline" size="small">Browse</ion-button>
+          </ion-item>
+          
+        </ion-list>
+        
+        <ion-button expand="block" type="submit" color="primary" [disabled]="recordForm.invalid" class="ion-margin-top">
+          Save Record
+        </ion-button>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<!-- 3. DETAILED PET PROFILE Modal -->
+<ion-modal [isOpen]="isDetailsModalOpen" (didDismiss)="isDetailsModalOpen = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>{{ activePet?.name }}'s Details</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="isDetailsModalOpen = false">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <div class="details-header ion-padding ion-text-center">
+        <img [src]="activePet?.photoUrl" class="details-pet-photo"/>
+        <h2>{{ activePet?.name }}</h2>
+        <p>{{ activePet?.breed }} | {{ activePet?.dob }}</p>
+      </div>
+
+      <ion-segment [(ngModel)]="recordType" mode="md" class="ion-padding-horizontal">
+        <ion-segment-button value="Visit">
+          <ion-label>Vitals</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Vaccination">
+          <ion-label>Health</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Medication">
+          <ion-label>Records</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      
+      <!-- Detailed Content Tabs -->
+      <div class="ion-padding-top details-tabs-content">
+          <ion-list lines="full">
+              <ion-list-header>Basic & Vitals</ion-list-header>
+              <ion-item>
+                  <ion-icon name="color-palette-outline" slot="start"></ion-icon><ion-label>Color</ion-label><ion-note slot="end">{{ activePet?.color }}</ion-note>
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="nutrition-outline" slot="start"></ion-icon><ion-label>Allergies</ion-label><ion-note slot="end">{{ activePet?.allergies.join(', ') || 'None' }}</ion-note>
+              </ion-item>
+              <ion-item>
+                  <ion-icon name="medical-outline" slot="start"></ion-icon><ion-label>Last Checkup</ion-label><ion-note slot="end">{{ activePet?.lastCheckup }}</ion-note>
+              </ion-item>
+              
+              <ion-list-header>Assigned Vet & Clinic</ion-list-header>
+              <ion-item>
+                  <ion-icon name="person-circle-outline" slot="start"></ion-icon><ion-label>Vet Assigned</ion-label><ion-note slot="end">Dr. Amelia Hayes</ion-note>
+              </ion-item>
+              <ion-item lines="none">
+                  <ion-icon name="pin-outline" slot="start"></ion-icon><ion-label>Clinic Address</ion-label><ion-note slot="end" class="ion-text-wrap">123 Vet Lane (Map Placeholder)</ion-note>
+              </ion-item>
+          </ion-list>
+          
+          <div class="ion-padding">
+              <ion-button expand="block" color="tertiary" (click)="router.navigate(['/contact'])">Contact Vet</ion-button>
+          </div>
+          
+      </div>
+
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <ion-button expand="block" color="primary" class="ion-margin" (click)="openAddRecordModal(activePet?.id)">
+              Add New Health Record
+            </ion-button>
+        </ion-toolbar>
+    </ion-footer>
+  </ng-template>
+</ion-modal>

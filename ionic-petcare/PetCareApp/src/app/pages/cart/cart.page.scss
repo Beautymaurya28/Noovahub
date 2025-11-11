@@ -1,0 +1,137 @@
+$dark-brown: var(--ion-color-primary, #5C4033);
+$cream: var(--ion-color-secondary, #FFF9E6);
+$medium: var(--ion-color-medium);
+
+:host {
+  ion-content {
+    --background: #{$cream};
+  }
+
+  .cart-container {
+    // Responsive centering for desktop/tablet
+    @media (min-width: 768px) {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+  }
+
+  // --- Cart Item Card Styling ---
+  .cart-item {
+    --background: #fff;
+    --border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    padding: 10px 0;
+    
+    ion-thumbnail {
+      --border-radius: 8px;
+      margin-right: 15px;
+      min-width: 80px;
+      min-height: 80px;
+      
+      img {
+        object-fit: cover;
+      }
+    }
+
+    .item-name {
+      font-weight: 600;
+      color: #333;
+      font-size: 1em;
+    }
+
+    .item-price {
+      font-weight: 700;
+      color: $dark-brown;
+      font-size: 1.1em;
+      margin-top: 5px;
+    }
+    
+    ion-button {
+      font-size: 1.2em;
+    }
+  }
+
+  // --- Order Summary Card Styling ---
+  .summary-card {
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+
+    ion-card-header {
+      padding-bottom: 0;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      
+      ion-label {
+        color: $medium;
+      }
+      ion-text {
+        font-weight: 500;
+      }
+    }
+    
+    .total-line {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.1em;
+      border-top: 1px dashed #ddd;
+      margin-top: 10px;
+      padding-top: 10px;
+      
+      .total-amount {
+        font-size: 1.3em;
+      }
+    }
+  }
+
+  // --- Empty Cart State ---
+  .empty-state {
+    padding: 50px 20px;
+    ion-icon {
+      font-size: 4em;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #555;
+    }
+    p {
+      color: $medium;
+    }
+  }
+}
+
+// --- Checkout Footer Styling ---
+ion-footer {
+  .checkout-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+
+    .total-display {
+      display: flex;
+      flex-direction: column;
+      
+      ion-label {
+        font-size: 0.8em;
+        color: var(--ion-color-secondary-contrast); // Light text color
+      }
+      .price-big {
+        font-size: 1.4em;
+        font-weight: 700;
+        color: var(--ion-color-secondary); // Cream color for the price
+      }
+    }
+    
+    .checkout-btn {
+      height: 48px;
+      font-weight: 600;
+      min-width: 180px;
+    }
+  }
+}

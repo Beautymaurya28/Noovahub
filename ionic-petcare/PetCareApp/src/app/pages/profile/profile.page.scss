@@ -1,0 +1,89 @@
+$dark-brown: var(--ion-color-primary, #5C4033);
+$cream: var(--ion-color-secondary, #FFF9E6);
+$medium: var(--ion-color-medium);
+
+:host {
+  ion-content {
+    --background: #{$cream};
+  }
+  
+  .profile-container {
+    // Center content on large screens
+    @media (min-width: 768px) {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  // --- User Info Card ---
+  .user-info-card {
+    --background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    ion-card-content {
+      padding: 20px;
+    }
+
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 10px auto;
+      border: 3px solid $dark-brown;
+    }
+
+    ion-card-title {
+      font-weight: 700;
+      color: $dark-brown;
+      font-size: 1.3em;
+    }
+    ion-card-subtitle {
+      color: $medium;
+      font-size: 0.9em;
+    }
+  }
+
+  // --- Settings Lists ---
+  .nav-list-card {
+    background: transparent;
+    border-radius: 12px;
+    overflow: hidden; // Ensures rounded corners on inner items
+
+    ion-list-header {
+      padding-left: 0;
+      ion-label {
+        font-weight: 700;
+        font-size: 1.1em;
+        color: $dark-brown;
+      }
+    }
+    
+    // Style for all items within the settings lists
+    ion-item {
+      --background: #fff;
+      --border-radius: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); // Subtle separation
+      
+      ion-icon {
+        font-size: 1.2em;
+        margin-right: 15px;
+      }
+      
+      ion-label {
+        font-weight: 500;
+        color: #333;
+      }
+      
+      ion-note {
+        font-size: 0.8em;
+      }
+    }
+  }
+
+  // --- Logout Button ---
+  ion-button {
+    height: 50px;
+    font-weight: 600;
+    margin-top: 20px;
+  }
+}

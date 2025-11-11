@@ -1,0 +1,43 @@
+/** Ionic CSS Variables **/
+:root {
+  // Your custom colors
+  --ion-color-dark-brown: #4B2E05;
+  --ion-color-cream: #F5E6CC;
+  --ion-color-warm-gold: #E5C07B;
+
+  // --- Primary Colors ---
+  --ion-color-primary: var(--ion-color-dark-brown);
+  --ion-color-primary-rgb: 75, 46, 5;
+  --ion-color-primary-contrast: var(--ion-color-cream);
+  --ion-color-primary-contrast-rgb: 245, 230, 204;
+  --ion-color-primary-shade: #422804;
+  --ion-color-primary-tint: #5d421e;
+
+  // --- Secondary Colors (Used for backgrounds, accents) ---
+  --ion-color-secondary: var(--ion-color-cream);
+  --ion-color-secondary-rgb: 245, 230, 204;
+  --ion-color-secondary-contrast: var(--ion-color-primary);
+  --ion-color-secondary-contrast-rgb: 75, 46, 5;
+  --ion-color-secondary-shade: #d7ccc3; // Slightly darker cream
+  --ion-color-secondary-tint: #f5f2ee; // Slightly lighter cream
+
+  // --- Accent/Tertiary Color ---
+  --ion-color-tertiary: var(--ion-color-warm-gold);
+  --ion-color-tertiary-rgb: 229, 192, 123;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-shade: #c9a96c;
+  --ion-color-tertiary-tint: #e7c788;
+  
+  // --- Standard Colors (Keep or adjust) ---
+  --ion-color-success: #2dd36f;
+  --ion-color-warning: #ffc409;
+  --ion-color-danger: #eb445a;
+  --ion-color-light: #f4f5f8;
+  --ion-color-medium: #92949c;
+  --ion-color-dark: #222428;
+}
+
+// Ensure ion-content background defaults to your cream color
+ion-content {
+  --background: var(--ion-color-secondary);
+}

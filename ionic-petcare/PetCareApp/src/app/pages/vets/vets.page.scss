@@ -1,0 +1,169 @@
+// Define custom theme colors
+$primary-dark-brown: var(--ion-color-primary, #4B2E05);
+$secondary-cream: var(--ion-color-secondary, #F5E6CC);
+$tertiary-gold: var(--ion-color-tertiary, #E5C07B);
+$medium-gray: var(--ion-color-medium, #92949C);
+$white: #fff;
+
+:host {
+  .vets-content {
+    --background: #{$secondary-cream};
+  }
+
+  .vets-wrapper {
+    @media (min-width: 768px) {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  }
+
+  // --- Map Container Styling ---
+  .map-container {
+    height: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    .map-view {
+      height: 100%;
+      width: 100%;
+    }
+  }
+  
+  // --- Vet Registration Form (Collapsible) ---
+  .vet-registration-container {
+      max-height: 1000px; /* Initial tall height */
+      overflow: hidden;
+      transition: max-height 0.5s ease-in-out;
+      
+      &.collapsed {
+          max-height: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+          opacity: 0;
+      }
+      
+      ion-card {
+          border-radius: 12px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+          
+          ion-input, ion-select, ion-textarea {
+              --background: #fcfcfc;
+              border: 1px solid #ddd;
+              border-radius: 6px;
+              margin-top: 5px;
+          }
+      }
+  }
+
+  // --- Vet List Section ---
+  .vet-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .vet-card {
+    --background: #{$white};
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+    
+    ion-card-content {
+        padding: 20px;
+    }
+
+    .vet-info-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+
+      .vet-photo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 15px;
+        border: 2px solid $tertiary-gold;
+      }
+
+      ion-card-title {
+        font-size: 1.1em;
+        font-weight: 700;
+        color: $primary-dark-brown;
+      }
+
+      ion-card-subtitle {
+        color: $medium-gray;
+        font-size: 0.9em;
+      }
+
+      .rating-distance {
+        display: block;
+        font-size: 0.9em;
+        margin-top: 5px;
+        ion-icon {
+          font-size: 0.9em;
+        }
+      }
+    }
+    
+    .vet-actions {
+        display: flex;
+        gap: 10px;
+        
+        ion-button {
+            font-weight: 600;
+            text-transform: capitalize;
+            height: 38px;
+            --border-radius: 8px;
+            
+            &[fill="outline"] {
+                // Style for View Profile button
+                --color: $primary-dark-brown;
+                --border-color: $primary-dark-brown;
+            }
+        }
+    }
+  }
+
+  // --- Modal Specific Styles ---
+  .profile-modal-content {
+      text-align: center;
+      
+      .profile-header-details {
+          padding-bottom: 20px;
+          border-bottom: 1px solid #f0f0f0;
+      }
+
+      .profile-modal-photo {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin: 0 auto 10px auto;
+        border: 3px solid $tertiary-gold;
+      }
+      
+      h3 {
+          font-weight: 700;
+          color: $primary-dark-brown;
+      }
+  }
+
+  .mini-map-placeholder {
+      height: 150px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $medium-gray;
+      font-size: 0.9em;
+  }
+}
