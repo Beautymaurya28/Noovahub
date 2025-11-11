@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal webpages</title>
+    <style>
+        *{
+            margin:0%;
+        }
+        .navbar{
+            width: 100%;
+            height: 50px;
+            background-color: rgb(19, 2, 8);
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border-bottom: 2px solid black;
+        } 
+        .navlogo{
+            color: bisque;
+            display: flex;
+            justify-content: center;
+            width: 100px;
+            font-style: italic;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            border: 2px solid black;
+            border-radius: 20px;
+            margin-left: -180px;
+        }
+        .nav-link{
+            width: 250px;
+            height: 30px;
+            display: flex;
+            justify-content:space-evenly;
+            align-items: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-weight: 600;
+            color: black;
+            text-decoration: none;
+            text-align: left;
+            margin-right: -200px;
+        }
+        .nav-link a{
+            text-decoration: none;
+            color: bisque;
+        }
+
+        h2{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 600;
+        }
+        section{
+            background-color: black;
+            height: 550px;
+        }
+        .left-part{
+            width: 50%;
+            background-color: rgb(250, 248, 248);
+            height: 550px;
+        }
+        .right-part{
+            width: 50%;
+            height: 550px;
+            background-image: url(https://i.pinimg.com/736x/d3/29/e8/d329e8b5bc3ffb4c61fe8b1c357b0be9.jpg);
+        }
+
+        .section-img{
+            height: 100px;
+            width: 100px;
+            border-radius: 100%;;
+
+        }
+    
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+       <div class="navlogo">NoovaHub</div>
+      <div class="nav-link">
+        <a href="#">Home</a>
+        <a href="#">Contact</a>
+        <a href="#">About</a>
+      </div>
+    </nav>
+    <header>
+        <h2 class="heading">
+            Welcome to My Personal Webpage!
+        </h2>
+    </header>
+
+    <section>
+        <div class="left-part">
+
+        </div>
+        <div class="right-part" >
+            <img class="section-img"src="https://i.pinimg.com/736x/d3/29/e8/d329e8b5bc3ffb4c61fe8b1c357b0be9.jpg" alt="">
+        </div>
+    </section>
+</body>
+</html>

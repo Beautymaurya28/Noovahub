@@ -1,0 +1,59 @@
+/* //overall selector  */
+
+/* syntax and selector */
+*{
+  margin:0;
+  padding: 0;
+  /* background-color: black; */
+}
+
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px;
+}
+
+h1,h2,p,div{
+    /* padding: 10px; */
+    margin-bottom: 15px;
+    border-radius: 5px;
+
+}
+
+/* color in css */
+.colors{
+   display: flexbox;
+   justify-content: centec;
+   align-items: center;
+}
+
+#named{
+  background-color:pink;
+}
+
+#hex{
+  background-color: #ff3490;
+}
+
+#rgb{
+  background-color:rgb(20,0,34);
+}
+
+
+#rgba{
+  background-color:rgba(20,50,0,38);
+  color:black;
+}
+
+#hsl {
+  background-color: hsl(300, 100%, 50%); /* bright purple */
+}
+
+/* HSLA Colors */
+#hsla {
+  background-color: hsla(45, 100%, 50%, 0.5); /* semi-transparent yellow */
+  color: black;
+ }
+
+
+ 

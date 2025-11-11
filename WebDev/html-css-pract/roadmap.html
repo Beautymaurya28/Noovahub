@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaHub - 6 Month Tracker</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1e293b;
+      padding: 20px;
+      text-align: center;
+      color: #facc15;
+      font-size: 1.8rem;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .section {
+      background-color: #1e293b;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    .section h2 {
+      color: #38bdf8;
+      margin-bottom: 10px;
+      font-size: 1.4rem;
+    }
+    .section ul {
+      list-style: none;
+      padding: 0;
+    }
+    .section li {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+    .section input[type="checkbox"] {
+      margin-right: 10px;
+      accent-color: #38bdf8;
+      transform: scale(1.2);
+    }
+    footer {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>NovaHub - 6 Month Career Tracker</header>
+  <div class="container" id="tracker-container">
+    <!-- JavaScript will render the sections here -->
+  </div>
+  <footer>
+    Created with 💙 by Nova | Keep glowing and growing ✨
+  </footer>
+
+  <script>
+    const roadmap = {
+      "Month 1: Full Stack Foundations": [
+        "HTML, CSS, JavaScript fundamentals",
+        "Learn React.js (hooks, state management)",
+        "Backend with Node.js + Express.js",
+        "MongoDB basics & CRUD",
+        "Create 2 mini full stack apps",
+        "Setup GitHub, push code daily",
+        "Build portfolio homepage"
+      ],
+      "Month 2: AI + Python Integration": [
+        "Integrate OpenAI or Gemini API",
+        "Learn Python basics + scikit-learn",
+        "Deploy app on Vercel/Render",
+        "Add JWT or OAuth authentication",
+        "Post 2 short blogs on LinkedIn",
+        "Build 1 AI-based project"
+      ],
+      "Month 3: DevOps + Cloud": [
+        "Learn Linux + Shell basics",
+        "Advanced Git usage",
+        "GitHub Actions CI/CD",
+        "Dockerize project & push",
+        "Deploy on AWS/GCP (free tier)",
+        "Earn Google Cloud Digital Leader badge"
+      ],
+      "Month 4: System Design + Branding": [
+        "Understand caching, load balancing",
+        "Draw app architecture (Excalidraw)",
+        "Build resume using Canva/Overleaf",
+        "GitHub: update pinned + README",
+        "LinkedIn revamp + banner",
+        "Weekly LinkedIn posts"
+      ],
+      "Month 5: DSA + Mock Interviews": [
+        "Pick DSA sheet (Striver/NeetCode)",
+        "Practice 1.5-2 hrs daily",
+        "Solve 30+ LeetCode problems",
+        "Peer/pramp mock interviews",
+        "Apply to internships/jobs"
+      ],
+      "Month 6: Final Prep + Jobs": [
+        "Polish 2-3 full projects",
+        "Revise HR + tech questions",
+        "Join hackathons (Devfolio etc.)",
+        "Apply to 10+ jobs/week",
+        "Send follow-up DMs to recruiters"
+      ]
+    };
+
+    const container = document.getElementById('tracker-container');
+
+    Object.entries(roadmap).forEach(([month, tasks]) => {
+      const section = document.createElement('div');
+      section.className = 'section';
+
+      const title = document.createElement('h2');
+      title.textContent = month;
+
+      const ul = document.createElement('ul');
+      tasks.forEach(task => {
+        const li = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = task;
+        checkbox.addEventListener('change', () => {
+          localStorage.setItem(task, checkbox.checked);
+        });
+
+        // Load saved state
+        if (localStorage.getItem(task) === 'true') {
+          checkbox.checked = true;
+        }
+
+        const label = document.createElement('label');
+        label.htmlFor = task;
+        label.textContent = task;
+
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        ul.appendChild(li);
+      });
+
+      section.appendChild(title);
+      section.appendChild(ul);
+      container.appendChild(section);
+    });
+  </script>
+</body>
+</html>

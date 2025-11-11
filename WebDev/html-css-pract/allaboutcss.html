@@ -1,0 +1,97 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS</title>
+    <link rel="stylesheet" href="allaboutcss.css">
+</head>
+<body>
+    <div class="1.intro">
+       <h1>Introduction: </h1>
+       <p>css-cascading style sheet use of this to design the webpage(used to style the html element)</p>
+       <p>two types of css- 1.inline(for ex <p style="width: 20;"></p>) 2.internal(written inside <style></style> tag in head) 3.external(seperate file for css .css and linked with link element) </p>
+
+
+       <h2>Css selector:</h2>
+       <p>which is used to select the html elemnt to style</p>
+       <p>selector{property:value;}</p>
+       <p>three key thing in slector: 1.selector:which elemnt you want to style 2.property: what you want to change 3: value: how you want to change it</p>
+    </div>
+    <br>
+    <br>
+    <div class="2.colors">
+         <h1 id="named">Named Color (Teal)</h1>
+         <h2 id="hex">HEX Color (#ff6347)</h2>
+         <p id="rgb">RGB Color (rgb(60, 179, 113))</p>
+         <div  id="rgba">RGBA Color (rgba(30, 144, 255, 0.5))</div>
+         <p id="hsl">HSL Color (hsl(300, 100%, 50%))</p>
+         <div id="hsla">HSLA Color (hsla(45, 100%, 50%, 0.5))</div>
+    </div>
+
+<br><br>
+    <div class="3.font" style="justify-content: center; display: flexbox; align-items: baseline; ">
+        <h1 style="display: flex; justify-content: center; border: 5px solid black;">all about font and text</h1>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">font family-sets the font of text </p>
+        <p style="font-size: xx-large;">font size-decide size of font</p>
+        <p style="font-weight: 600;">font weight-controlls the thickness and thinness of font</p>
+        <p style="font-style: italic;">font style-used to styling the text like italic </p>
+        <p style="line-height: 2px;">line height-controlles the space btw lines</p>
+        <br><br>
+        <h2 style="display: flex; justify-content: center; border: 5px solid black;">Text properties</h2>
+        <p style="text-align: center;">text align-align textinside container</p>
+        <p style="text-decoration: underline;">text decoration-decorate the text</p>
+        <p style="text-transform: uppercase;">text transform- change letter upper case lower case</p>
+        <p style="letter-spacing: 2px;">Lettter spacng-it is used to adjust the apce btw lettwes</p>
+        <p style="word-spacing:20px;">word spacing-spaceing btw words</p>
+    </div>
+
+    <div class="4.boxmodel" style="padding: 20px; border: 5px solid black; border-radius: 10px; margin: 30px; ">
+        <h1 style="text-align: center; border: 5px solid black;">Box Modal</h1>
+        <p>Every html element consist of 4 layers 1.margin(space btw element and other) 2.border(line around padding) 3.padding(space btw content and border) 4. content(the actual content)</p>
+    </div>
+
+    <div class="Display-property" style="display: block;">
+        <h1 style="border: 2px solid black; text-align: center; display: inline-block; width: 150px; height: 100px;">Display-property</h1>
+        <p>it define how an html element displayed in documemnt layout,it affects layout flow visibility and spacing</p>
+        <p style="display: none;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui nostrum voluptatum corrupti, voluptates eius tempora, eligendi, dolorem aliquid mollitia perferendis deleniti ullam sit autem soluta veniam fugit dolorum? Non, autem?</p>
+    </div>
+
+    <div class="positioning" style="position: static; ">
+        <h1 style="border: 2px solid black; align-items: center; position: relative; top: 20px; ;left: 30px;">positioning</h1>
+        
+        <p >it define how element is placed in the layout</p>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>all about css</title>
+    <style>
+
+        .nav-link{
+            display: flex;
+            justify-content:space-evenly;
+            align-items: center;
+            
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-link">
+        <div class="nav-logo">NoohaHub</div>
+            <li>Home</li>
+            <li>Contact</li>
+            <li>Skills</li>
+            <li>Project</li>
+        </ul>
+        <div class="menu-toggle" id="menutoggle"></div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,394 @@
+
+<!-- what is UTF-8----
+---UTF 8 stand for unicode Transformation Format-8bit ,itcharacter encoding system that tells the browser how to interoet the text on our webpage basically it for special symbol it suported by allborwser and so that browser not create any type of messiness when use special character.. in simple UTF-8 like a universal lang for computer to read text correctly 
+,no matter what lang or symbol we type -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">  
+    <meta name ="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTml</title>
+  </head>
+  <body>
+    jfhgkjsd
+  </body>
+</html> -->
+
+
+ <!DOCTYPE html> <!--//declare th document of our html it define that this page render using html5  -->
+  <html lang="en">  <!-- this called the root element of html and lang-it define the anguage of html document -->
+<head>   <!-- it contain the meta information about the page which not visible on the page-->
+    <meta charset="UTF-8"> <!-- itensure that all character and symbol display perfectly on page like spacing gapping etc -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- its make our page responsive on all devices-->
+    <title>Document</title> <!-- it contain the tittle of our html page which displays on browser tab-->
+     <style>
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  padding: 15px 20px;
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/*  Responsive for small screens */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #222;
+    top: 60px;
+    right: 20px;
+    width: 150px;
+    padding: 10px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+     </style>
+</head> <!-- head closed-->
+<body> <!-- this containe those type of element which display on our page which we will see all visible content goes-text,imageslinks,btn etc-->
+  <!-- HTML HEADING -->
+   <h1>ONE</h1>
+   <h2>TWO</h2>
+   <h3>Three</h3>
+   <h4>FOUR</h4>
+   <h5>FIVE</h5>
+   <H6>Six</H6>
+
+
+   <!-- Paragraph and text formatting -->
+    <!-- for paragraph we use p -->
+     <p>Hey! How you doing?</p>
+     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid distinctio rem nisi voluptatem, quod suscipit amet impedit odio sapiente voluptates sed voluptatum, sunt maiores illo temporibus quaerat, officia laudantium labore?</p>
+     <p><i>Lorem</i>ipsum <strong>dolor</strong> sit amet, consectetur adipisicing elit. Numquam <em>repellendus</em> sapiente obcaecati, aperiam sit omnis nostrum, quasi quisquam adipisci, impedit doloribus odit illum libero assumenda quia rem. Ut, esse blanditiis!</p>
+
+     <!-- link-Which is also known as HyperLink which use to attach link  -->
+      <a href="#">Cat Pic<!-- this is callled attribute thistext will display when link will not work--></a>
+
+
+      <!-- List- It is way to group related item together in oragnize way  -->
+       <!-- two types of list we have 1.Ordered means item organize in number 1 2 3 4..   2.unordered item organize in dot not a specific number-->
+        <ul> <!-- unorderd list-->
+            <li>Home</li>
+            <li>books</li>
+            <li>Laptop</li>
+            <li>Cakes</li>
+        </ul>
+        <ol> <!--ordered list-->
+            <li>Samosa</li>
+            <li>book</li>
+            <li>ice cream</li>
+            <li>Momo</li>
+        </ol>
+        <img src="#" alt="cat pic">
+
+        <!-- Table -->
+         <table border="1" cellpadding="10" cellspacing="5">
+            <tr><!--Row-->
+              <th> <!--Row Heading-->
+                books
+              </th>
+              <th>
+                Price
+              </th>
+              <th>
+                Author
+              </th>
+            </tr>
+            <tr>
+                <td>
+                    Like Follwing River
+                </td>
+                <td> <!--Row Data-->
+                    320
+                </td>
+                <td>
+                    Poulo Coelho
+                </td>
+                <tfoot> <!--table footer-->
+                    <td>
+                        done
+                    </td>
+                    <td>
+                        done
+                    </td>
+                    <td>
+                        done
+                    </td>
+                </tfoot>
+            </tr>
+         </table>
+         <br><!--it is use for line changing-->
+
+
+         <!-- Form: it is way to collect input from user like their name email pass choices messages etc bridge btw user and website-->
+          <div style="border: 2px solid black; padding: 5px; ">
+            <form action="submit" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name:">
+            <br>
+            <br>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="enter your correctemail">
+             <br>
+             <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"><br><br>
+            
+            <select name="gender" id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select><br><br>
+            <textarea name="messages" id="messages" rows="4" cols="30"></textarea>
+            <br><br>
+
+             <!-- html 5 input type -->
+            <input type="date">
+            <input type="url" placeholder="for website link">
+            <input type="tel" placeholder="for telephone num">
+            <input type="range" placeholder="to pick value from range">
+            <input type="time" placeholder="time picker">
+            <input type="datetime-local" placeholder="both date and time">
+            <input type="month" placeholder="select month and year">
+            <input type="week">
+            <input type="color">
+            <input type="search" placeholder="search field ">
+            <input type="checkbox" placeholder="multiple slecetion">
+            <input type="radio" placeholder="single selction among options">
+            <input type="file" placeholder="upload file">
+            <input type="reset" name="reset" id="reset" placeholder="reset form to defaults">
+            <input type="button" placeholder="generic button ">
+            <input type="submit" value="submit">
+          </form>
+          </div>
+
+          <!-- mutlimedia element these are used to embed audio video and other media directly on webpages-->
+          <audio controls> <!-- controls-show play/pause/volume button-->
+            <source src="#" type="audio/mpeg">
+            our browser doesn't support the audio element
+          </audio>
+          <video width="320" height="300" controls>
+            <source src="movie.mp4" type="video/mp4">
+            our browser doesn't support video also
+          </video>
+
+
+          <!-- iframe it stand for inline frame and is used to embed another webpage or control inside your current webpages-->
+           <iframe src="#"  width="500" height="400" title="example site"></iframe>
+           
+           <!-- html attribute -->
+            <p id="intro">Helllo</p>
+
+
+              <nav class="navbar">
+    <div class="logo">NovaSite</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+  </nav>
+  
+  <div class="form-container">
+    <form action="#" method="POST">
+      <h2>Contact Us</h2>
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  
+  <script src="script.js"></script>
+
+</body>
+</html>
+
+
+
+<!-- //1.make html file
+//2.make boilerplate code
+//3.understand tag
+//4.understand h1-h6
+//5.understand p
+//6.undersatnd br 
+//7.understand img
+//8.undersatnd a 
+//9.understand div
+//understand class
+//understand form
+//understand navbar
+
+
+//html vs html5
+//---html5 we can say the upgraded version of html(it is released in 1997 and html released in 2014)
+//---html only use div and span for everything but html introduces sematic tags like header,section,article,nav,footer these all those thing which derive the struct of any web pages
+//--html doesnot support media and need plugins likeflash but html5 supoer native like audio video no need for plugins
+//html was long and completicated but html5 is simple and clean
+//in html no builts-in-APIs but in html5 it has built in apis like geolocation convas etc;
+//not responsive but html 5is responsive
+//less optimized and faster and more efficient -->
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hedaing1</h1>
+    <h2>Hedaing1</h2>
+    <h3>Hedaing1</h3>
+    <h4>Hedaing1</h4>
+    <h5>Hedaing1</h5>
+    <h6>Hedaing1</h6>
+    <p>Paragraphtag </p>
+   //<br>-it is use for break the line 
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpuzSMtLBIm_vqG6NxtAlc_rhVB_K-ijaxJg&s" alt="">
+       //a tag it is hyper link a  
+    <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpuzSMtLBIm_vqG6NxtAlc_rhVB_K-ijaxJg&s">anker</a>
+</body>
+</html> 
+
+ //what is tag :
+//<> this is tag.whatever we will in btw is called tag
+//open and closing dog tag
+// -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Navbar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">NovaSite</div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+  </nav>
+  
+  <div class="form-container">
+    <form action="#" method="POST">
+      <h2>Contact Us</h2>
+
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+<!-- //dom: api for html/xml documents
+// it is a way to define the webpages in a hierarchical way to become easy to use and manipulate
+// it represents the entire document as Nodes and Object.
+//it is designed to use indepenedent
+
+
+//what is dom:
+//-how js understand this html document
+// js can't understand tags but can understand objects 
+//element node 2.attribute node 3.textnode
+// what is ide:
+// integrated development modal 
+//ide is basical where we can write code debug it run it mannage with switching tools
+//forex: vs code,westrom etc -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello world</h1>
+    <script  src="simplilearn.js" type="text/Javascript">
+        document.write("hello world let's start javascript drive!");
+    </script>
+</body>
+</html> -->
+
+
