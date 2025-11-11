@@ -1,0 +1,4 @@
+What is Docker?
+Docker is an open-source platform used to develop, test, and deploy applications quickly by packaging them into containers. These containers include everything the app needs: code, runtime, libraries, and system tools.
+
+Docker Image is the blueprint or template used to create Docker containers.
