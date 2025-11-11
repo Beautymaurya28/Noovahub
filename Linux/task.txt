@@ -1,0 +1,9 @@
+##linux commandds: cd(change the folder)
+-ls(list files/folder)
+chmod(permission to run)
+grep()
+find()
+tar()
+top()
+date-31st june tuesday
+task-bash shricpting(if for while,variable,function,mini scripts for automation)

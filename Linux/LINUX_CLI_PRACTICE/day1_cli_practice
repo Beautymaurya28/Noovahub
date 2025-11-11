@@ -1,0 +1,38 @@
+#!bin/bash
+#navigation
+echo "ls=list what'sin your folder/file"
+echo  "pwd=show current folder"
+echo "cd=change directory"
+
+#filesops
+echo "mkdir=create folder"
+echo "touch=create file"
+echo "rm=delete file/folder"
+echo "cp=copyfile/folder"
+echo "mv=Move/renamefile/folder"
+
+#permision
+echo "chmod=change permision"
+echo "chown=change owner(needs sudo)"
+#example
+echo "ls -l=see permission"
+echo  "chmod +xfile1.txt=make file executable"
+echo "sudo chown $USER file1.txt=take ownership(if needed)"
+
+#searching
+echo "grep=search text inside files"
+echo "find=find file by name/path"
+echo "locate=fast file search(needs updatedb"
+
+#textfile commands
+echo "cat=view file"
+echo "nano=edit file"
+echo "echo=output text/write to file"
+echo "head=view first lines"
+echo "tail=view last lines"
+
+#archiving
+echo "tar=archive files"
+echo "zip=zip folder"
+echo "unzip=extract zip file"
+
